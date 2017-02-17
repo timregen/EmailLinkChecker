@@ -10,6 +10,7 @@ var urlList = [
   "https://en.wikipedia.org/wiki/Uniform_Resource_Locator",
   "SomeInvalidURL",
   "http://www.google.com/facebook",
+  "http:/dingdong/blah",
   // add some duplicates
   "SomeInvalidURL",
   "http://www.google.com/facebook"
@@ -38,10 +39,16 @@ function validateUrls(list) {
     // first see if it looks like a valid URI
     if (validUrl.isUri(url)) {
       // then hit the link and see if it's broken or something other than success
-      var response = request('GET', url);
-      if (response.statusCode != 200) {
+      try {
+        var response = request('GET', url);
+        if (response.statusCode != 200) {
+          invalidReason =
+            `Returned status: ${response.statusCode} ${status[response.statusCode]}`;
+          console.log(`  '${url}' - ${invalidReason}`)
+        }
+      } catch (e) {
         invalidReason =
-          `Returned status: ${response.statusCode} ${status[response.statusCode]}`;
+          `Invalid link`;
         console.log(`  '${url}' - ${invalidReason}`)
       }
     } else {
