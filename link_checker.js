@@ -19,12 +19,14 @@ var urlList = [
 var invalidUrls = validateUrls(urlList);
 console.log('')
 console.log(
-  `Function returned these invalid links: ${JSON.stringify(invalidUrls)}`)
+  `Function returned these invalid links: ${JSON.stringify(invalidUrls, undefined, 2)}`
+)
 console.log('')
 
 function validateUrls(list) {
 
-  console.log(`Processing user's links: ${JSON.stringify(urlList)} ... `)
+  console.log(
+    `Processing user's links: ${JSON.stringify(urlList, undefined, 2)} ... `)
   console.log('')
 
   // no reason to validate the same url twice
@@ -53,7 +55,7 @@ function validateUrls(list) {
       }
     } else {
       invalidReason = "Not a valid URI";
-      console.log(`  '${url}' - ${invalidReason}.`)
+      console.log(`  '${url}' - ${invalidReason}`)
     }
 
     // add to invalid list that we'll return to caller
